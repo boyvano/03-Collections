@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Collections.Tasks
 {
@@ -60,7 +61,7 @@ namespace Collections.Tasks
                 catch (ArgumentException)
                 {
                     throw new ArgumentException();
-                    
+
                 }
 
             }
@@ -80,7 +81,23 @@ namespace Collections.Tasks
         /// </example>
         public static IEnumerable<string> Tokenize(TextReader reader)
         {
-            throw new NotImplementedException();
+            string line = null;
+            var strings = new StringBuilder();
+            if (reader == null)
+                throw new ArgumentNullException();
+
+            while (true)
+            {
+                line = reader.ReadLine();
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    strings.Append(line);
+                }
+                else if (line == null)
+                    break;
+            }
+
+            return strings.ToString().Split(new[] { ' ', '\n', '.', '\t', '\r', ',' }, options: StringSplitOptions.RemoveEmptyEntries);
         }
 
         /// <summary>
