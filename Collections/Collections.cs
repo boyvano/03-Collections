@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Collections.Tasks
 {
 
-	/// <summary>
-	///  Tree node item 
-	/// </summary>
-	/// <typeparam name="T">the type of tree node data</typeparam>
-	public interface ITreeNode<T> {
+    /// <summary>
+    ///  Tree node item 
+    /// </summary>
+    /// <typeparam name="T">the type of tree node data</typeparam>
+    public interface ITreeNode<T>
+    {
         T Data { get; set; }                             // Custom data
         IEnumerable<ITreeNode<T>> Children { get; set; } // List of childrens
     }
@@ -30,8 +32,38 @@ namespace Collections.Tasks
         ///   2 => { 1, 1 }
         ///   12 => { 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144 }
         /// </example>
-        public static IEnumerable<int> GetFibonacciSequence(int count) {
-            throw new NotImplementedException();
+        public static IEnumerable<int> GetFibonacciSequence(int count)
+        {
+            if (count == 0)
+            {
+                return new int[0];
+            }
+            else
+            {
+                try
+                {
+                    int[] series = new int[1];
+                    Array.Resize(ref series, count);
+
+                    series[0] = 0;
+                    series[1] = 1;
+
+                    for (int i = 2; i < count; i++)
+                        series[i] = series[i - 1] + series[i - 2];
+                    for (int j = 0; j < series.Length - 1; j++)
+                    {
+                        series[j] = series[j + 1];
+                    }
+                    series[count - 1] = series[count - 2] + series[count - 3];
+                    return series;
+                }
+                catch (ArgumentException)
+                {
+                    throw new ArgumentException();
+                    
+                }
+
+            }
         }
 
         /// <summary>
@@ -46,7 +78,8 @@ namespace Collections.Tasks
         ///  "TextReader is the abstract base class of StreamReader and StringReader, which ..." => 
         ///   {"TextReader","is","the","abstract","base","class","of","StreamReader","and","StringReader","which",...}
         /// </example>
-        public static IEnumerable<string> Tokenize(TextReader reader) {
+        public static IEnumerable<string> Tokenize(TextReader reader)
+        {
             throw new NotImplementedException();
         }
 
@@ -71,7 +104,8 @@ namespace Collections.Tasks
         ///                   
         ///    result = { 1, 2, 3, 4, 5, 6, 7, 8 } 
         /// </example>
-        public static IEnumerable<T> DepthTraversalTree<T>(ITreeNode<T> root) {
+        public static IEnumerable<T> DepthTraversalTree<T>(ITreeNode<T> root)
+        {
             throw new NotImplementedException();
         }
 
@@ -98,7 +132,7 @@ namespace Collections.Tasks
         /// </example>
         public static IEnumerable<T> WidthTraversalTree<T>(ITreeNode<T> root)
         {
-	        throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -120,35 +154,36 @@ namespace Collections.Tasks
         /// </example>
         public static IEnumerable<T[]> GenerateAllPermutations<T>(T[] source, int count)
         {
-	        throw new NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
 
-    public static class DictionaryExtentions {
+public static class DictionaryExtentions
+{
 
-	    /// <summary>
-	    ///    Gets a value from the dictionary cache or build new value
-	    /// </summary>
-	    /// <typeparam name="TKey">TKey</typeparam>
-	    /// <typeparam name="TValue">TValue</typeparam>
-	    /// <param name="dictionary">source dictionary</param>
-	    /// <param name="key">key</param>
-	    /// <param name="builder">builder function to build new value if key does not exist</param>
-	    /// <returns>
-	    ///   Returns a value assosiated with the specified key from the dictionary cache. 
-	    ///   If key does not exist than builds a new value using specifyed builder, puts the result into the cache 
-	    ///   and returns the result.
-	    /// </returns>
-	    /// <example>
-	    ///   IDictionary<int, Person> cache = new SortedDictionary<int, Person>();
-	    ///   Person value = cache.GetOrBuildValue(10, ()=>LoadPersonById(10) );  // should return a loaded Person and put it into the cache
-	    ///   Person cached = cache.GetOrBuildValue(10, ()=>LoadPersonById(10) );  // should get a Person from the cache
-	    /// </example>
-	    public static TValue GetOrBuildValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key,
-		    Func<TValue> builder)
-	    {
-		    throw new NotImplementedException();
-	    }
+    /// <summary>
+    ///    Gets a value from the dictionary cache or build new value
+    /// </summary>
+    /// <typeparam name="TKey">TKey</typeparam>
+    /// <typeparam name="TValue">TValue</typeparam>
+    /// <param name="dictionary">source dictionary</param>
+    /// <param name="key">key</param>
+    /// <param name="builder">builder function to build new value if key does not exist</param>
+    /// <returns>
+    ///   Returns a value assosiated with the specified key from the dictionary cache. 
+    ///   If key does not exist than builds a new value using specifyed builder, puts the result into the cache 
+    ///   and returns the result.
+    /// </returns>
+    /// <example>
+    ///   IDictionary<int, Person> cache = new SortedDictionary<int, Person>();
+    ///   Person value = cache.GetOrBuildValue(10, ()=>LoadPersonById(10) );  // should return a loaded Person and put it into the cache
+    ///   Person cached = cache.GetOrBuildValue(10, ()=>LoadPersonById(10) );  // should get a Person from the cache
+    /// </example>
+    public static TValue GetOrBuildValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key,
+        Func<TValue> builder)
+    {
+        throw new NotImplementedException();
     }
+}
 
